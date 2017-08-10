@@ -33,13 +33,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static android.R.attr.button;
-import static android.R.attr.name;
-import static android.R.attr.path;
-import static android.R.attr.radius;
-import static com.sanjay.animalquiz.MainActivity.ANIMALS_TYPE;
-import static com.sanjay.animalquiz.MainActivity.GUESSES;
-
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -64,58 +57,6 @@ public class MainActivityFragment extends Fragment {
     private ImageView imgAnimal;
     private LinearLayout[] rowsOfGuessButtonsInAnimalQuiz;
     private TextView txtAnswer;
-
-
-    public MainActivityFragment() {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_main, container, false);
-
-
-        allAnimalsNamesList = new ArrayList<>();
-        animalsNamesQuizList = new ArrayList<>();
-        secureRandomNumber = new SecureRandom();
-        handler = new Handler();
-
-
-        wrongAnswerAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.wrong_answer_animation);
-
-        wrongAnswerAnimation.setRepeatCount(1);
-
-
-        animalQuizLinearLayout = (LinearLayout) view.findViewById(R.id.animalQuizLinearLayout);
-        txtQuestionNumber = (TextView) view.findViewById(R.id.txtQuestionNumber);
-        imgAnimal = (ImageView) view.findViewById(R.id.imgAnimal);
-        rowsOfGuessButtonsInAnimalQuiz = new LinearLayout[3];
-        rowsOfGuessButtonsInAnimalQuiz[0] = (LinearLayout) view.findViewById(R.id.firstRowLinearLayout);
-        rowsOfGuessButtonsInAnimalQuiz[1] = (LinearLayout) view.findViewById(R.id.secondRowLinearLayout);
-        rowsOfGuessButtonsInAnimalQuiz[2] = (LinearLayout) view.findViewById(R.id.thirdRowLinearLayout);
-        txtAnswer = (TextView) view.findViewById(R.id.txtAnswer);
-
-        for (LinearLayout row : rowsOfGuessButtonsInAnimalQuiz) {
-
-            for (int column = 0; column < row.getChildCount(); column++) {
-
-                Button btnGuess = (Button) row.getChildAt(column);
-                btnGuess.setOnClickListener(btnGuessListener);
-                btnGuess.setTextSize(24);
-
-            }
-
-        }
-
-
-        txtQuestionNumber.setText(getString(R.string.question_text, 1, NUMBER_OF_ANIMALS_INCLUDED_IN_QUIZ));
-
-
-        return view;
-
-    }
-
-
     private View.OnClickListener btnGuessListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -188,6 +129,54 @@ public class MainActivityFragment extends Fragment {
         }
     };
 
+    public MainActivityFragment() {
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+
+        allAnimalsNamesList = new ArrayList<>();
+        animalsNamesQuizList = new ArrayList<>();
+        secureRandomNumber = new SecureRandom();
+        handler = new Handler();
+
+
+        wrongAnswerAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.wrong_answer_animation);
+
+        wrongAnswerAnimation.setRepeatCount(1);
+
+
+        animalQuizLinearLayout = (LinearLayout) view.findViewById(R.id.animalQuizLinearLayout);
+        txtQuestionNumber = (TextView) view.findViewById(R.id.txtQuestionNumber);
+        imgAnimal = (ImageView) view.findViewById(R.id.imgAnimal);
+        rowsOfGuessButtonsInAnimalQuiz = new LinearLayout[3];
+        rowsOfGuessButtonsInAnimalQuiz[0] = (LinearLayout) view.findViewById(R.id.firstRowLinearLayout);
+        rowsOfGuessButtonsInAnimalQuiz[1] = (LinearLayout) view.findViewById(R.id.secondRowLinearLayout);
+        rowsOfGuessButtonsInAnimalQuiz[2] = (LinearLayout) view.findViewById(R.id.thirdRowLinearLayout);
+        txtAnswer = (TextView) view.findViewById(R.id.txtAnswer);
+
+        for (LinearLayout row : rowsOfGuessButtonsInAnimalQuiz) {
+
+            for (int column = 0; column < row.getChildCount(); column++) {
+
+                Button btnGuess = (Button) row.getChildAt(column);
+                btnGuess.setOnClickListener(btnGuessListener);
+                btnGuess.setTextSize(24);
+
+            }
+
+        }
+
+
+        txtQuestionNumber.setText(getString(R.string.question_text, 1, NUMBER_OF_ANIMALS_INCLUDED_IN_QUIZ));
+
+
+        return view;
+
+    }
 
     private String getTheExactAnimalName(String animalName) {
 
@@ -326,8 +315,6 @@ public class MainActivityFragment extends Fragment {
     }
 
 
-
-
     private void showNextAnimal() {
 
         String nextAnimalImageName = animalsNamesQuizList.remove(0);
@@ -384,11 +371,9 @@ public class MainActivityFragment extends Fragment {
     }
 
 
-
-
     public void modifyAnimalsGuessRows(SharedPreferences sharedPreferences) {
 
-        final String  NUMBER_OF_GUESS_OPTIONS = sharedPreferences.getString(MainActivity.GUESSES, null);
+        final String NUMBER_OF_GUESS_OPTIONS = sharedPreferences.getString(MainActivity.GUESSES, null);
 
         numberOfAnimalsGuessRows = Integer.parseInt(NUMBER_OF_GUESS_OPTIONS) / 2;
 
@@ -405,7 +390,6 @@ public class MainActivityFragment extends Fragment {
         }
 
     }
-
 
 
     public void modifyTypeOfAnimalsInQuiz(SharedPreferences sharedPreferences) {
@@ -465,7 +449,6 @@ public class MainActivityFragment extends Fragment {
         }
 
     }
-
 
 
     public void modifyBackgroundColor(SharedPreferences sharedPreferences) {
@@ -605,11 +588,6 @@ public class MainActivityFragment extends Fragment {
         }
 
     }
-
-
-
-
-
 
 
 }
